@@ -3,3 +3,4 @@ E:\Del\JSTree\JSTree\bin\JSTree.dll
 E:\Del\JSTree\JSTree\bin\JSTree.pdb
 E:\Del\JSTree\JSTree\obj\Debug\JSTree.dll
 E:\Del\JSTree\JSTree\obj\Debug\JSTree.pdb
+E:\Del\JSTree\JSTree\obj\Debug\JSTree.csprojResolveAssemblyReference.cache
