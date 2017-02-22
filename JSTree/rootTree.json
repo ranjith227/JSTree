@@ -1,15 +1,9 @@
 [
   {
     "text": "Opened root folder",
-    "state": {
-      "opened": true
-    },
-    "children": [
-      {
-        "id" : "specialChildSubTree",
-        "state": "closed",
-        "children":true
-      }
-    ]
+    "state": "closed",
+    "id": "specialChildSubTree",
+    "children": true
+   
   }
 ]
