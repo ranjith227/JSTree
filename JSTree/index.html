@@ -51,102 +51,87 @@
     <script src="./assets/dist/jstree.min.js"></script>
 
 
+<script>
+    
+    $('#ajax').jstree({
+		'core' : {
+			'data' : function (node, cb) {
+				if(node.id === "#") {
+					 	console.log(JSON.stringify(Parent()));
+					Parent(function(resp){
 
-    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>-->
-    <script type="text/javascript">
-        function ShowCategories() {
-            $.ajax({
+					cb(resp);
+					});
+				}
+				else {
+
+
+					
+						child(node.id, function(resp){
+
+						cb(resp);
+						});
+
+						
+				}
+			}
+		}
+	});
+
+
+
+
+
+function Parent(cb_func)
+{
+
+ $.ajax({
                 type: "POST",
-                url: "default.aspx/GetCategories",
+                url: "http://localhost:61088/default.aspx/GetCategories",
                 data: '{parentid: null }',
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
-                success: OnSuccess,
+                success: function (response){
+                	console.log(JSON.stringify(response.d));
+                	cb_func(response.d);
+                },
                 failure: function (response) {
-                    alert(response.d);
-                }
-            });
-        }
-        function OnSuccess(response) {
-            console.log(response);
-            console.log(response.d);
-
-            $('#ajax').jstree({
-                'core': {
-                    'data': response.d,
-                    "ajax": {
-                        url: "default.aspx/GetCategories",
-                        data: function (n) {
-                            return {
-                                "parentid": 1
-                            }
-                        }
-                    }
+                    alert(response);
                 }
             });
 
-        }
+	
+}
 
-        ShowCategories();
+function child(id, cb_func)
+{
+	//alert(id);
+	//return ["Child"];
+
+$.ajax({
+                type: "POST",
+                url: "http://localhost:61088/default.aspx/GetCategories",
+                data: '{parentid: '+id+' }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response){
+                	console.log(JSON.stringify(response.d));
+                	cb_func(response.d);
+                },
+                failure: function (response) {
+                    alert(response);
+                }
+            });
+
+}
     </script>
-
-
-
-    <script>
-        // html demo
-
-        //$('#ajax').jstree({
-        //    "plugins" : ["themes", "json_data", "ui"],
-        //    "json_data" : {
-        //        "ajax" : {
-        //            "type": 'POST',
-        //            "data": '{parentid: null }',
-        //            "contentType": "application/json; charset=utf-8",
-        //            "url": function (node) {
-        //                var nodeId = "";
-        //                var url = ""
-        //                if (node == -1)
-        //                {
-        //                    url = "default.aspx/GetCategories";
-        //                }
-        //                else
-        //                {
-        //                    nodeId = node.attr('id');
-        //                    url = "default.aspx/GetCategories";
-        //                }
-
-        //                return url;
-        //            },
-        //            "success": function (new_data) {
-        //                return new_data;
-        //            }
-        //        }
-        //    }
-        //});
-
-
-        //ajax demo
-        //$('#ajax').jstree({
-        //	'core' : {
-        //		'data' : {
-        //		    "url" :  function(node){
-        //		        var url = "rootTree.json";
-        //		        if(node.id === "specialChildSubTree")
-        //		            url = "specialChildSubTree.json";
-        //		        return url;
-        //		    },
-        //    "data" : function(node){
-        //        return {"id" : node.id};
-        //    },
-        //			"dataType" : "json" // needed only if you do not supply JSON headers
-        //		}
-        //	}
-        //});
+  
 
 
 
 
 
-    </script>
+
+    
 </body>
 </html>
